@@ -2,10 +2,9 @@ from flask import Flask, request, send_file, render_template
 import pandas as pd
 from openpyxl import load_workbook
 import os
+from tempfile import NamedTemporaryFile
 
 app = Flask(__name__)
-
-app = Flask(__name__, template_folder='.')
 
 # Definerer filplasseringen for regnearkmalen
 EXCEL_TEMPLATE_PATH = os.path.join('assets', 'Regnskapsark-for-elevbedrifter.xlsx')
@@ -42,13 +41,13 @@ def process_files():
         ws[f"D{6 + i}"] = row['Ut']
         ws[f"E{6 + i}"] = row['Inn']
 
-    # Lagre det oppdaterte regnearket til en ny fil
-    output_path = "Updated_Regnskapsark-for-elevbedrifter.xlsx"
-    wb.save(output_path)
+    # Lagre det oppdaterte regnearket til en midlertidig fil
+    with NamedTemporaryFile(delete=False, suffix=".xlsx") as temp_file:
+        temp_path = temp_file.name
+        wb.save(temp_path)
 
     # Send filen tilbake til brukeren for nedlasting
-    return send_file(output_path, as_attachment=True)
+    return send_file(temp_path, as_attachment=True)
 
 if __name__ == '__main__':
- app.run(debug=True, host='0.0.0.0', port=8080)
-
+    app.run(debug=True, host='0.0.0.0', port=8080)
