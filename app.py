@@ -1,42 +1,51 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template
 import pandas as pd
 from openpyxl import load_workbook
+import os
 
 app = Flask(__name__)
 
+# Definerer filplasseringen for regnearkmalen
+EXCEL_TEMPLATE_PATH = os.path.join('assets', 'Regnskapsark-for-elevbedrifter.xlsx')
+
 @app.route('/')
 def upload_page():
-    return render_template('index.html')
+    return render_template('index.html')  # Sender brukeren til opplastingsskjemaet
 
 @app.route('/process', methods=['POST'])
 def process_files():
-    # Mottar CSV-filen
+    # Sjekk om både CSV- og Excel-filer er lastet opp
     csv_file = request.files['csv_file']
+    excel_file = request.files['excel_file']
 
-    # Laste inn den statiske Excel-malen som er lagret i serveren (eks. assets/mal.xlsx)
-    excel_path = 'assets/Regnskapsark-for-elevbedrifter.xlsx'  # Bruk din egen mal her
-    wb = load_workbook(excel_path)
-    ws = wb['Ark1']
+    if not csv_file or not excel_file:
+        return "Feil: Begge filer må lastes opp", 400
 
-    # Les CSV-data
+    # Les inn CSV-dataene
     csv_data = pd.read_csv(csv_file)
-    csv_data['Dato'] = pd.to_datetime(csv_data['Dato']).dt.strftime('%d.%m.%Y')
+    csv_data['Dato'] = pd.to_datetime(csv_data['Dato']).dt.strftime('%d.%m.%Y')  # Konverterer til norsk datoformat
     csv_data['Ut'] = csv_data['Beløp'].apply(lambda x: -x if x < 0 else 0)
     csv_data['Inn'] = csv_data['Beløp'].apply(lambda x: x if x > 0 else 0)
 
-    # Sett data inn i Excel-malen
+    # Åpne Excel-malen
+    wb = load_workbook(EXCEL_TEMPLATE_PATH)
+    ws = wb['Ark1']  # Velg arket der dataene skal settes inn
+
+    # Sett data i de riktige cellene i Excel
     for i, row in csv_data.iterrows():
-        if 6 + i > 19:  # Bare til A19
-            break
-        ws[f"A{6 + i}"] = f"A{6 + i}"  # Billag
+        if 6 + i > 19:
+            break  # Stopper hvis vi overskrider antall rader som skal fylles
+        ws[f"A{6 + i}"] = f"A{6 + i}"  # Fyller inn Billag (automatisert i henhold til rekkefølgen)
         ws[f"B{6 + i}"] = row['Dato']
         ws[f"C{6 + i}"] = row['Beskrivelse']
         ws[f"D{6 + i}"] = row['Ut']
         ws[f"E{6 + i}"] = row['Inn']
-    
-    output_path = "Updated_File.xlsx"
+
+    # Lagre det oppdaterte regnearket til en ny fil
+    output_path = "Updated_Regnskapsark-for-elevbedrifter.xlsx"
     wb.save(output_path)
 
+    # Send filen tilbake til brukeren for nedlasting
     return send_file(output_path, as_attachment=True)
 
 if __name__ == '__main__':

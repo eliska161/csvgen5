@@ -2,92 +2,74 @@
 <html lang="no">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultiGrip CSV to Excel Generator</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/logo_style.css" rel="stylesheet">
+    <title>MultiGrip CSV til Excel Generator</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
-        :root {
-            --light-blue: #ADD8E6; /* Light Blue color */
-            --header-blue: #41b4d3;  /* Custom Header blue */
-            --dark-blue: #4682B4;  /* Darker Blue color for navigation */
-        }
-
         body {
-            background-color: #FFFFFF; /* White background */
+            background-color: white;
+            font-family: Arial, sans-serif;
         }
-
-        .navbar {
-            background-color: var(--header-blue); /* Set header to custom blue */
-        }
-
-        .btn-primary {
-            background-color: var(--dark-blue);
-            border-color: var(--dark-blue);
-        }
-
-        .btn-primary:hover {
-            background-color: #36688C; /* Hover effect */
-            border-color: #36688C;
-        }
-
-        footer {
-            background-color: #FFFFFF;
-            color: var(--dark-blue);
+        .header {
+            background-color: #41b4d3;
+            color: white;
+            padding: 10px 0;
             text-align: center;
-            padding: 30px 0;
         }
-
-        footer img {
-            width: 120px;
-            margin-top: 20px;
+        .footer {
+            background-color: #41b4d3;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
         }
-
         .container {
-            max-width: 800px;
-            margin-top: 30px;
+            margin-top: 40px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #41b4d3;
+            border-color: #41b4d3;
         }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand text-white" href="#">
-                <image src="/assets/logo.png" alt="MultiGrip" style="width: 120px;">
-            </a>
+<!-- Header -->
+<div class="header">
+    <h1><image src="assets/logo.png" alt="MultiGrip Logo" height="60"> MultiGrip CSV til Excel Generator</h1>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <h2>Last opp filer for å generere Excel</h2>
+    
+    <form action="/process" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="csv_file" class="form-label">CSV-fil</label>
+            <input class="form-control" type="file" name="csv_file" id="csv_file" required>
         </div>
-    </nav>
 
-    <!-- Main Content -->
-    <div class="container mt-5 text-center">
-        <h2 class="mb-4">CSV til Excel Generator</h2>
-        <p>Velg CSV-filen for å generere Excel-filen.</p>
+        <div class="mb-3">
+            <label for="excel_file" class="form-label">Excel-mal</label>
+            <input class="form-control" type="file" name="excel_file" id="excel_file" required>
+        </div>
 
-        <!-- File upload form (only CSV) -->
-        <form action="/process" method="POST" enctype="multipart/form-data" class="border p-4 rounded shadow-sm bg-white">
-            <div class="mb-3">
-                <label for="csv_file" class="form-label">Velg CSV-fil:</label>
-                <input type="file" name="csv_file" id="csv_file" accept=".csv" class="form-control" required>
-            </div>
+        <button type="submit" class="btn btn-primary">Generer Excel</button>
+    </form>
+</div>
 
-            <!-- Buttons -->
-            <div class="d-flex justify-content-center mb-3">
-                <button type="submit" class="btn btn-primary me-3">Generer Excel-fil</button>
-            </div>
-        </form>
-    </div>
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2025 MultiGrip - Alle rettigheter forbeholdt.</p>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 MultiGrip | All Rights Reserved</p>
-        <image src="/assets/logo.png" alt="MultiGrip Logo"> <!-- Centered Logo -->
-    </footer>
+<!-- Bootstrap JS (for oppdateringer av knapper osv.) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
