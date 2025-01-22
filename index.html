@@ -7,11 +7,52 @@
     <title>MultiGrip CSV to Excel Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/logo_style.css" rel="stylesheet"> <!-- Custom styles (optional) -->
+
+    <style>
+        /* Custom colors for branding */
+        :root {
+            --light-blue: #ADD8E6; /* Light Blue color */
+            --dark-blue: #4682B4;  /* Darker Blue color for navigation */
+        }
+
+        body {
+            background-color: var(--light-blue);
+        }
+
+        .navbar {
+            background-color: var(--dark-blue);
+        }
+
+        .btn-primary {
+            background-color: var(--dark-blue);
+            border-color: var(--dark-blue);
+        }
+
+        .btn-primary:hover {
+            background-color: #36688C; /* Hover effect - slightly darker blue */
+            border-color: #36688C;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        footer {
+            background-color: var(--dark-blue);
+        }
+    </style>
+
 </head>
-<body class="bg-light">
+<body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand text-white" href="#">
                 <image src="/assets/logo.png" alt="MultiGrip" style="width: 120px;">
@@ -45,7 +86,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="mt-5 text-center py-4 bg-primary text-white">
+    <footer class="mt-5 text-center py-4 text-white">
         <p>© 2025 MultiGrip | All Rights Reserved</p>
     </footer>
 
