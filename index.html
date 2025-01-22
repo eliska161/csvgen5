@@ -12,15 +12,16 @@
         /* Custom colors for branding */
         :root {
             --light-blue: #ADD8E6; /* Light Blue color */
+            --header-blue: #41b4d3;  /* Custom Header blue */
             --dark-blue: #4682B4;  /* Darker Blue color for navigation */
         }
 
         body {
-            background-color: var(--light-blue);
+            background-color: #FFFFFF; /* White background for the body */
         }
 
         .navbar {
-            background-color: var(--dark-blue);
+            background-color: var(--header-blue); /* Set header to custom blue */
         }
 
         .btn-primary {
@@ -44,8 +45,17 @@
         }
 
         footer {
-            background-color: var(--dark-blue);
+            background-color: #FFFFFF; /* White footer background */
+            color: var(--dark-blue); /* Dark blue text for footer */
+            text-align: center; /* Centers the content */
+            padding: 30px 0; /* Add some padding for the footer */
         }
+
+        footer img {
+            width: 120px; /* Adjust size of the logo */
+            margin-top: 20px; /* Space between footer text and logo */
+        }
+
     </style>
 
 </head>
@@ -86,8 +96,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="mt-5 text-center py-4 text-white">
+    <footer>
         <p>© 2025 MultiGrip | All Rights Reserved</p>
+        <img src="/assets/multigrip-logo.png" alt="MultiGrip Logo"> <!-- Centered Logo -->
     </footer>
 
     <!-- Bootstrap JS (optional for additional functionality) -->
