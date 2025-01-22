@@ -5,6 +5,8 @@ import os
 
 app = Flask(__name__)
 
+app = Flask(__name__, template_folder='.')
+
 # Definerer filplasseringen for regnearkmalen
 EXCEL_TEMPLATE_PATH = os.path.join('assets', 'Regnskapsark-for-elevbedrifter.xlsx')
 
@@ -14,12 +16,11 @@ def upload_page():
 
 @app.route('/process', methods=['POST'])
 def process_files():
-    # Sjekk om både CSV- og Excel-filer er lastet opp
+    # Sjekk om CSV-filen er lastet opp
     csv_file = request.files['csv_file']
-    excel_file = request.files['excel_file']
 
-    if not csv_file or not excel_file:
-        return "Feil: Begge filer må lastes opp", 400
+    if not csv_file:
+        return "Feil: CSV-fil må lastes opp", 400
 
     # Les inn CSV-dataene
     csv_data = pd.read_csv(csv_file)
@@ -49,4 +50,5 @@ def process_files():
     return send_file(output_path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+ app.run(debug=True, host='0.0.0.0', port=8080)
+
