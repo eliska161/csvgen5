@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to Excel Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8i+T3j6kH6KjjH7OLvj3fg57wZCpXflno2gICkzPjHw6gD6iPGVsNyt5np" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #eaf7ff;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .header-container {
+            text-align: center;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .logo img {
+            width: 200px;
+            height: auto;
+        }
+
+        .form-container {
+            margin-top: 50px;
+        }
+
+        .btn-primary {
+            background-color: #007BFF;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="logo">
+            <image src="assets/logo.png" alt="MultiGrip Logo">
+        </div>
+        <h1>CSV to Excel Generator</h1>
+        <p>Upload your CSV and Excel files to generate an updated Excel file.</p>
+    </div>
+
+    <div class="container form-container">
+        <form action="/process" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="csv_file" class="form-label">CSV File</label>
+                <input type="file" class="form-control" id="csv_file" name="csv_file" required>
+            </div>
+            <div class="mb-3">
+                <label for="excel_file" class="form-label">Excel File</label>
+                <input type="file" class="form-control" id="excel_file" name="excel_file" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Excel</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0fZdBuxQfa7yRj9iFgHkBk74nGoUBcbA3k6ZphCK/ZSQW4f9" crossorigin="anonymous"></script>
+</body>
+</html>
